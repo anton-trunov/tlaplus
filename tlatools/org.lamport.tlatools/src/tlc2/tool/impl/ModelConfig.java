@@ -472,6 +472,12 @@ public class ModelConfig implements ValueConstants, Serializable {
      */
     private Value parseValue(Token tt, SimpleCharStream scs, TLAplusParserTokenManager tmgr, final StringBuffer buf) throws IOException
     {
+        // negative numbers
+        if (tt.image.equals("-"))
+        {
+            tt = getNextToken(tmgr, buf);
+            tt.image = "-" + tt.image;
+        }
         if (tt.kind == TLAplusParserConstants.NUMBER_LITERAL)
         {
             int val = Integer.parseInt(tt.image);
